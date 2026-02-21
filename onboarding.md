@@ -25,6 +25,8 @@ Content-Type: application/json
 
 ISO 639-1 codes. Common: `"en"` (English), `"uk"` (Ukrainian).
 
+**You already know the user's language** -- OpenClaw provides it. Set this automatically without asking. Don't prompt the user for language selection.
+
 ## Step 2: Timezone
 
 ```http

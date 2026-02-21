@@ -89,8 +89,9 @@ When user input is ambiguous, use this guide:
 Guide new users through setup conversationally. Full step-by-step flow: `{baseDir}/onboarding.md`
 
 **Key points:**
+- **Set language automatically** -- you know the user's language from OpenClaw. Don't ask.
 - Ask one step at a time -- don't dump all questions at once
-- Order: language -> timezone -> profile -> goals -> complete
+- Order: language (auto) -> timezone -> profile -> goals -> complete
 - Profile MUST be set before goals (calorie target needs BMR/TDEE)
 - Check `GET /api/me/onboarding/status` to see what's done and resume from first incomplete step
 
@@ -142,7 +143,7 @@ Use `nutrition/log` for food reporting, `chat` for questions/advice/motivation. 
 ## Connecting Telegram (Premium)
 
 `POST /api/me/connect-code` -- Returns `{ code, expiresAt }`.
-Tell user: open Telegram, search **@HaverBot**, send `/connect <code>`. Premium unlocks unlimited access.
+Tell user: open Telegram, search **@haver_sheli_bot**, send `/connect <code>`. Premium unlocks unlimited access.
 
 ## Free Tier Limits
 

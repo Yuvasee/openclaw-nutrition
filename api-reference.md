@@ -276,7 +276,7 @@ Authorization: Bearer hv_...
 
 Response: `{ "code": "ABC123", "expiresAt": "2026-02-21T01:15:00Z" }`
 
-Tell user: open Telegram, search **@HaverBot**, send `/connect ABC123`. Once connected, they can subscribe for premium access.
+Tell user: open Telegram, search **@haver_sheli_bot**, send `/connect ABC123`. Once connected, they can subscribe for premium access.
 
 ## Error Responses
 
