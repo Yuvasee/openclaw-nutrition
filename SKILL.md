@@ -136,6 +136,16 @@ Use `nutrition/log` for food reporting, `chat` for questions/advice/motivation. 
 
 `GET /api/me/memory` -- Returns `{ formattedMemory }`. What Haver remembers about the user from past conversations. Useful for personalizing coaching.
 
+## Account Status & Subscription
+
+`GET /api/me/status` -- User overview: total messages, monthly usage, subscription tier, remaining trial messages.
+Returns: `{ userId, totalMessages, currentMonthMessages, subscription: { tier, endDate?, unlimited }, remainingTrialMessages }`
+
+`GET /api/me/subscription` -- Subscription tier and daily/monthly usage vs limits.
+Returns: `{ userId, subscription: { tier, endDate?, unlimited }, dailyUsage: { foodLogs, chat, images } | null, monthlyUsage | null }`
+
+Each usage limit has `{ used, limit, remaining }`. Premium users get `dailyUsage: null, monthlyUsage: null`. Use this to proactively check limits before making requests.
+
 ## Settings
 
 `PATCH /api/me/settings` -- body: `{ "language?": "en", "timezone?": "Europe/London" }`. At least one field required.
@@ -174,7 +184,6 @@ Full error response shapes: `{baseDir}/api-reference.md`
 - **No water tracking** -- only food and calories
 - **No exercise logging** -- no way to log workouts or subtract exercise calories
 - **No barcode scanning** -- food must be described in text or photographed
-- **No remaining-limits query** -- track client-side if needed
 - **No scheduled messages or streaming**
 - **No voice/audio** -- transcribe to text first
 - **Units are metric** -- kg and cm. Convert: 1 lb = 0.4536 kg, 1 inch = 2.54 cm, 1 ft = 30.48 cm
@@ -193,6 +202,8 @@ Full error response shapes: `{baseDir}/api-reference.md`
 |--------|------|------|-------------|
 | POST | `/api/register` | None | Register or re-register. Returns user + new API key. |
 | GET | `/api/me` | Key | Get your user profile. |
+| GET | `/api/me/status` | Key | Account overview: messages, subscription, trial remaining. |
+| GET | `/api/me/subscription` | Key | Subscription tier with daily/monthly usage limits. |
 | PATCH | `/api/me/settings` | Key | Update language and/or timezone. |
 | GET | `/api/me/onboarding/status` | Key | Check onboarding progress. |
 | POST | `/api/me/onboarding/language` | Key | Set language during onboarding. |

@@ -255,6 +255,86 @@ Response: `{ "userId": "...", "formattedMemory": "Prefers Mediterranean diet, di
 
 What Haver remembers about the user from past conversations. Useful for personalizing coaching.
 
+## Account Status
+
+```http
+GET {HAVER_API_URL}/api/me/status
+Authorization: Bearer hv_...
+```
+
+Response (free user):
+```json
+{
+  "userId": "...",
+  "totalMessages": 23,
+  "currentMonthMessages": 15,
+  "subscription": {
+    "tier": "free",
+    "unlimited": false
+  },
+  "remainingTrialMessages": 35
+}
+```
+
+Response (premium user):
+```json
+{
+  "userId": "...",
+  "totalMessages": 142,
+  "currentMonthMessages": 37,
+  "subscription": {
+    "tier": "premium",
+    "endDate": "2026-03-15T00:00:00.000Z",
+    "unlimited": true
+  },
+  "remainingTrialMessages": null
+}
+```
+
+## Subscription & Usage Limits
+
+```http
+GET {HAVER_API_URL}/api/me/subscription
+Authorization: Bearer hv_...
+```
+
+Response (free user):
+```json
+{
+  "userId": "...",
+  "subscription": {
+    "tier": "free",
+    "unlimited": false
+  },
+  "dailyUsage": {
+    "foodLogs": { "used": 3, "limit": 10, "remaining": 7 },
+    "chat": { "used": 1, "limit": 3, "remaining": 2 },
+    "images": { "used": 0, "limit": 2, "remaining": 2 }
+  },
+  "monthlyUsage": {
+    "messagesUsed": 15,
+    "limit": 50,
+    "remaining": 35
+  }
+}
+```
+
+Response (premium user):
+```json
+{
+  "userId": "...",
+  "subscription": {
+    "tier": "premium",
+    "endDate": "2026-03-15T00:00:00.000Z",
+    "unlimited": true
+  },
+  "dailyUsage": null,
+  "monthlyUsage": null
+}
+```
+
+Check `subscription.unlimited` -- if `true`, limits don't apply. Each usage limit has `used`, `limit`, and `remaining` so the agent doesn't need to do math.
+
 ## Settings
 
 ```http
